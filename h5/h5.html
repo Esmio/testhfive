@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="h5.css">
         <script>
             ! function (e) {
                     function t(a) {
@@ -39,116 +40,42 @@
                 }]);
                 flex(100, 1);
         </script>
-        <style>
-            html, body, div{
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
-            }
-            html,body {
-                height: 100%;
-            }
-            .root {
-                width: 7.5rem;
-                border: 1px solid red;
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                display: flex;
-                flex-direction: column;
-            }
-            .demo {
-                width: 7.5rem;
-                height: 3rem;
-                position: relative;
-            }
-            .cat {
-                box-shadow: 2px 2px 3px #ddd;
-                width: 100%;
-                height: 100%;
-            }
-            .title {
-                position: absolute;
-                top: .2rem;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 32px;
-                font-weight: bold;
-                color: #fff;
-            }
-            button {
-                width: 2rem;
-                height: 1rem;
-                font-size: 32px;
-            }
-        </style>
         <script type="text/javascript" src="html2canvas.js"></script>
+        <script type="text/javascript" src="qrcode.js"></script>
+        <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
     </head>
     <body>
         <div class="root" id="root">
-            <div class="demo" id="demo">
-                <img class="cat" src="./cat.jpg" alt="">
-                <div class="title">Cute Cat</div>
+            <div id="rokid1" class="rokid1">
+                <input class="name" id="name" type="text" placeholder="请输入昵称">
             </div>
-            <button onclick='takeScreenShot()'>截图</button>
-            <img src="" id="img" />
+            <div id="loading" class="loading">
+                <div class="loading-img"></div>
+            </div>
+            <div class="rokid2" id="rokid2">
+                <div class="result-img">
+                    
+                </div>
+                <div class="content">
+                    <div class="buttons">
+                        <div class="button" id="save">保存图片</div>
+                        <div class="button" id="again">再来一次</div>
+                    </div>
+                    <div class="list" id="list">
+                        <div class="item">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pre-save" id="pre-save">
+                <div class="qrcode" id="qrcode"></div>
+            </div>
+            <img src="" id="print" alt="">
         </div>
         <script>
-            //运动事件监听
-            if (window.DeviceMotionEvent) {
-                window.addEventListener('devicemotion', deviceMotionHandler, false);
-            }
-
-            //获取加速度信息
-            //通过监听上一步获取到的x, y, z 值在一定时间范围内的变化率，进行设备是否有进行晃动的判断。
-            //而为了防止正常移动的误判，需要给该变化率设置一个合适的临界值。
-            var SHAKE_THRESHOLD = 4000;
-            var last_update = 0;
-            var x, y, z, last_x = 0, last_y = 0, last_z = 0;
-            function deviceMotionHandler(eventData) {
-                var acceleration = eventData.accelerationIncludingGravity;
-                var curTime = new Date().getTime();
-                if ((curTime - last_update) > 10) {
-                    var diffTime = curTime - last_update;
-                    last_update = curTime;
-                    x = acceleration.x;
-                    y = acceleration.y;
-                    z = acceleration.z;
-                    var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
-                    if (speed > SHAKE_THRESHOLD) {
-                        alert("你中奖啦！");  // Do something
-                    }
-                    last_x = x;
-                    last_y = y;
-                    last_z = z;
-                }
-            }
-            //随机数组
-            var arr = [10,11,22,33,44,55]
-            var ran = Math.floor(Math.random()*6)
-            var newArr = []
-            for(var i = arr.length; i > 0; i--) {
-                var r = Math.floor(Math.random() * i)
-                var n = arr.splice(r,1)
-                newArr.push(n[0])
-            }
-            console.log(newArr, arr)
-            arr = newArr.slice()
-            newArr = []
-            // html2canvas
-            window.onload = function(){
-                var canvas = document.createElement("canvas");
-                canvas.width = window.screen.width * 1.5;
-                canvas.height = document.getElementById('demo').offsetHeight;
-                html2canvas(document.getElementById('demo'), {
-                    canvas: canvas,
-                    onrendered: function (canvas) {
-                        var myImage = canvas.toDataURL("image/png");
-                        document.getElementById('img').setAttribute("src", myImage)
-                    }
-                })
-
-            }
+            $('body,html').height(document.body.clientHeight);
         </script>
+        <script type="text/javascript" src="h5.js"></script>
     </body>
 </html>
