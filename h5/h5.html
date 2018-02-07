@@ -46,21 +46,24 @@
     </head>
     <body>
         <div class="root" id="root">
+            <div class="audio active" id="audio"></div>
             <div id="rokid1" class="rokid1">
                 <input class="name" id="name" type="text" placeholder="请输入昵称">
+                <div id="shake" class="shake active"></div>
             </div>
+            <audio autoplay id="bgMusic" loop src="金蛇狂舞.mp3"></audio>
             <div id="loading" class="loading">
                 <div class="loading-img"></div>
             </div>
             <div class="rokid2" id="rokid2">
                 <div class="result-img">
-                    
-                </div>
-                <div class="content">
                     <div class="buttons">
                         <div class="button" id="save">保存图片</div>
                         <div class="button" id="again">再来一次</div>
                     </div>
+                </div>
+                <div class="content">
+                    
                     <div class="list" id="list">
                         <div class="item">
                             

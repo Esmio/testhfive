@@ -1,9 +1,13 @@
 //运动事件监听
 window.onload = function() {
     var shake = true
+    var music = true
     var input = document.querySelector('#name')
     var save = document.querySelector('#save')
     var again = document.querySelector('#again')
+    var audio = document.querySelector('#audio')
+    var bgMusic = document.querySelector('#bgMusic');
+    var shakeEle = document.querySelector('#shake');
     if (window.DeviceMotionEvent) {
         window.addEventListener('devicemotion', deviceMotionHandler, false);
     }
@@ -112,6 +116,7 @@ window.onload = function() {
         var rokid2 = document.getElementById('rokid2');
         var list = document.getElementById('list');        
         loading.style.display = 'flex'
+        $(shakeEle).removeClass('active');
         var timer = setTimeout(function() {
             loading.style.display = 'none'
             rokid1.style.display = 'none'
@@ -129,6 +134,7 @@ window.onload = function() {
             rokid2.style.display = 'none';
             rokid1.style.display = 'flex';
             shake = true;
+            $(shakeEle).addClass('active');            
             clearTimeout(timer2)
         }, 400);
     })
@@ -137,6 +143,7 @@ window.onload = function() {
         var preSave = document.getElementById('pre-save');
         rokid2.style.display = 'none';            
         preSave.style.display = 'block';
+        audio.style.display = 'none';
         var qrcode = document.getElementById("qrcode")
         new QRCode('qrcode', {
             text: location.href,
@@ -144,5 +151,10 @@ window.onload = function() {
             height: qrcode.clientHeight - 15,
         })
         getScreenShoot(document.getElementById('pre-save')) 
+    })
+    $(audio).on('click', function() {
+        music = !music  
+        music ? $(this).addClass('active') : $(this).removeClass('active')      
+        music ? bgMusic.play() : bgMusic.pause()
     })
 }
